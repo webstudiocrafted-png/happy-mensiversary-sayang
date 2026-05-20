@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Sayangku 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ruby:       #d63d6e;
+      --ruby-d:     #a8244f;
+      --ruby-l:     #f0698e;
+      --coral:      #f4756a;
+      --amber:      #f5a623;
+      --amber-l:    #ffd97d;
+      --violet:     #8b4db8;
+      --violet-l:   #b983e0;
+      --teal:       #2cb5a0;
+      --teal-l:     #6dd5c4;
+      --deep:       #1a0a2e;
+      --deep-m:     rgba(26,10,46,0.6);
+      --surface:    #fef7f0;
+      --white:      #ffffff;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--surface);
+      overflow: hidden;
+      min-height: 100vh;
+      position: relative;
+      /* Anti-block teks agar tidak mudah di-copy/inspect */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* ── PETAL BG ── */
+    .petal-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .petal {
+      position: absolute; opacity: 0;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-20px) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 0.5; }
+      90%  { opacity: 0.2; }
+      100% { transform: translateY(110vh) rotate(380deg); opacity: 0; }
+    }
+
+    /* ── MOUSE TRAIL ── */
+    #trailContainer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+    .trail-heart {
+      position: fixed; pointer-events: none;
+      font-size: 16px; line-height: 1;
+      animation: trailFade 0.9s ease-out forwards;
+    }
+    @keyframes trailFade {
+      0%   { transform: translate(-50%,-50%) scale(0.4); opacity: 1; }
+      100% { transform: translate(-50%,-160%) scale(1.1); opacity: 0; }
+    }
+    .trail-sad {
+      position: fixed; pointer-events: none;
+      font-size: 18px;
+      animation: trailSad 1.4s ease-out forwards;
+    }
+    @keyframes trailSad {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%,-170%) scale(1.4); opacity: 0; }
+    }
+
+    /* ── PAGE SYSTEM ── */
+    .page {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .page.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
+
+    .reveal {
+      opacity: 0;
+      animation: revealUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PAGE 1 — INDEX */
+    #pageIndex {
+      background: var(--surface);
+      flex-direction: column; text-align: center;
+    }
+    #pageIndex::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(214,61,110,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(139,77,184,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 60% 10%, rgba(245,166,35,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .index-eyebrow {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      background: linear-gradient(135deg, var(--ruby), var(--amber));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .index-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 9vw, 96px);
+      font-weight: 300; line-height: 1.1;
+      color: var(--deep); letter-spacing: -0.01em;
+    }
+    .index-title em { font-style: italic; color: var(--ruby); }
+
+    .index-rule {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), var(--ruby), transparent);
+      margin: 28px auto; border-radius: 2px;
+    }
+
+    .index-sub {
+      font-size: 13px; font-weight: 300;
+      color: var(--deep-m); letter-spacing: 0.05em;
+    }
+
+    .btn-row {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      margin-top: 44px;
+    }
+
+    .btn-primary {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 16px 40px; border: none; border-radius: 50px;
+      background: linear-gradient(135deg, var(--ruby) 0%, var(--violet) 100%);
+      color: #fff; cursor: pointer;
+      box-shadow: 0 8px 32px rgba(214,61,110,0.35);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .btn-primary:hover  { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(214,61,110,0.45); }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-ghost {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 15px 32px;
+      border: 1.5px solid var(--ruby-l);
+      border-radius: 50px; background: transparent; color: var(--ruby);
+      cursor: pointer; transition: transform 0.25s, background 0.25s;
+    }
+    .btn-ghost:hover  { background: rgba(214,61,110,0.06); transform: translateY(-2px); }
+    .btn-ghost:active { transform: scale(0.97); }
+
+    .corner { position: absolute; width: 80px; height: 80px; border-style: solid; opacity: 0.5; }
+    .corner-tl { top: 36px; left: 36px;  border-color: var(--ruby-l); border-width: 2px 0 0 2px; }
+    .corner-tr { top: 36px; right: 36px; border-color: var(--amber-l); border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 36px; left: 36px;  border-color: var(--violet-l); border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 36px; right: 36px; border-color: var(--teal-l);   border-width: 0 2px 2px 0; }
+
+    /* PAGE 2 — NO THANKS (SAD) */
+    #pageNoThanks {
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d0a18 50%, #0a1020 100%);
+      flex-direction: column; text-align: center;
+    }
+    #pageNoThanks::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 30% 30%, rgba(214,61,110,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(139,77,184,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .sad-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 86px);
+      font-weight: 300; font-style: italic;
+      background: linear-gradient(135deg, var(--ruby-l), var(--violet-l));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.2; margin-bottom: 12px;
+    }
+    .sad-sub {
+      font-size: 13px; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4); margin-bottom: 40px;
+    }
+    .btn-ghost-dark {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 14px 36px;
+      border: 1.5px solid rgba(240,105,142,0.4);
+      border-radius: 50px; background: transparent;
+      background: linear-gradient(135deg, rgba(214,61,110,0.08), rgba(139,77,184,0.08));
+      color: var(--ruby-l); cursor: pointer;
+      transition: background 0.25s, transform 0.25s, border-color 0.25s;
+    }
+    .btn-ghost-dark:hover  { border-color: rgba(240,105,142,0.7); transform: translateY(-2px); }
+    .btn-ghost-dark:active { transform: scale(0.97); }
+
+    /* Music Player */
+    #musicPlayer {
+      position: fixed; top: 24px; right: 24px; z-index: 100;
+      background: linear-gradient(135deg, rgba(166,36,79,0.75), rgba(90,30,120,0.75));
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px; padding: 10px 18px;
+      display: flex; align-items: center; gap: 12px;
+      backdrop-filter: blur(20px); cursor: pointer;
+      box-shadow: 0 8px 28px rgba(214,61,110,0.25);
+      transition: box-shadow 0.3s;
+    }
+    #musicPlayer:hover { box-shadow: 0 12px 36px rgba(214,61,110,0.4); }
+    .music-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--amber-l);
+      animation: musicPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes musicPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.5); opacity: 0.5; }
+    }
+    .music-dot.paused { animation: none; opacity: 0.3; }
+    .music-label { font-size: 11px; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); }
+    .music-song  { font-size: 12px; color: var(--amber-l); font-weight: 500; }
+    .music-btn {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.75); display: flex; align-items: center;
+      transition: color 0.2s;
+    }
+    .music-btn:hover { color: #fff; }
+    #playerExpanded { display: none; align-items: center; gap: 10px; }
+    #playerExpanded.open { display: flex; }
+    .progress-wrap { width: 80px; height: 3px; background: rgba(255,255,255,0.15); border-radius: 9px; overflow: hidden; }
+    #progressBar { height: 100%; background: var(--amber-l); width: 0; transition: width 0.1s linear; }
+    .vol-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 60px; height: 3px; background: rgba(255,255,255,0.2);
+      border-radius: 9px; cursor: pointer; outline: none;
+    }
+    .vol-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--amber-l); cursor: pointer;
+    }
+
+    /* PAGE 3 — VALIDATE (PIN) */
+    #pageValidate {
+      background: linear-gradient(135deg, var(--deep) 0%, #2d0a4e 50%, #1a1030 100%);
+      flex-direction: column;
+    }
+    #pageValidate::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 20% 0%, rgba(214,61,110,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 85% 100%, rgba(139,77,184,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 60% 50%, rgba(44,181,160,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .validate-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px; padding: 44px 48px;
+      display: flex; flex-direction: column; align-items: center; gap: 32px;
+      backdrop-filter: blur(24px);
+      max-width: 420px; width: 90vw;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.3);
+      border-top: 2px solid transparent;
+      background-clip: padding-box;
+    }
+    .validate-card::before {
+      content: ''; position: absolute; top: -2px; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--ruby), var(--amber), var(--violet));
+      border-radius: 28px 28px 0 0;
+    }
+
+    .photo-frame {
+      width: 100px; height: 100px; border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--ruby), var(--amber), var(--violet));
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 20px 60px rgba(0,0,0,0.35);
+    }
+    .photo-frame img {
+      width: 100%; height: 100%;
+      border-radius: 50%; object-fit: cover;
+      display: block;
+    }
+
+    .pin-label {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      background: linear-gradient(135deg, var(--amber), var(--ruby));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-weight: 600; margin-bottom: 8px;
+    }
+    .pin-display {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 14px 20px;
+      text-align: center;
+      font-size: 14px; color: rgba(255,255,255,0.75);
+      min-height: 50px; display: flex; align-items: center; justify-content: center;
+      letter-spacing: 0.05em; transition: all 0.3s;
+    }
+    .pin-display.success {
+      background: rgba(44,181,160,0.12);
+      border-color: rgba(44,181,160,0.45);
+      color: var(--teal-l);
+    }
+    .pin-display.error {
+      background: rgba(214,61,110,0.12);
+      border-color: rgba(214,61,110,0.45);
+      color: var(--ruby-l);
+    }
+
+    .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+    .key {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 18px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: rgba(255,255,255,0.85); cursor: pointer;
+      transition: background 0.15s, transform 0.1s, border-color 0.15s;
+    }
+    .key:hover  { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.2); }
+    .key:active { transform: scale(0.93); background: rgba(214,61,110,0.18); border-color: rgba(214,61,110,0.4); }
+    .key.del    { font-size: 16px; color: var(--ruby-l); }
+    .key.empty  { background: transparent; border: none; pointer-events: none; }
+
+    .validate-footer {
+      position: absolute; bottom: 24px;
+      font-size: 10px; letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.22); text-transform: uppercase;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60%  { transform: translateX(-8px); }
+      40%, 80%  { transform: translateX(8px); }
+    }
+    .shake { animation: shake 0.4s ease; }
+  </style>
+</head>
+<body>
+
+<div class="petal-bg" id="petalBg"></div>
+<div id="trailContainer"></div>
+<audio id="sadAudio" src="/music/ocean_engines.mp3" loop></audio>
+
+<!-- PAGE 1 — INDEX -->
+<div id="pageIndex" class="page">
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div style="position:relative;z-index:1;padding:24px;">
+    <p class="index-eyebrow reveal" style="animation-delay:.1s">made with love, just for you ✦</p>
+    <h1 class="index-title reveal" style="animation-delay:.3s">
+      Hi <em>Sayang,</em><br>
+      there's a<br>
+      little surprise for you.
+    </h1>
+    <div class="index-rule reveal" style="animation-delay:.7s"></div>
+    <p class="index-sub reveal" style="animation-delay:.9s">I hope this can make your day a little softer ♡</p>
+    <div class="btn-row reveal" style="animation-delay:1.1s">
+      <button class="btn-primary" onclick="navigateTo('pageValidate')">Open it 💌</button>
+      <button class="btn-ghost"   onclick="navigateTo('pageNoThanks')">Maybe later 💔</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 — NO THANKS -->
+<div id="pageNoThanks" class="page hidden" style="z-index:1">
+  <div id="musicPlayer">
+    <div class="music-dot" id="musicDot"></div>
+    <div>
+      <div class="music-song">Ocean &amp; Engines — NIKI</div>
+      <div class="music-label">Now Playing</div>
+    </div>
+    <div id="playerExpanded">
+      <div class="progress-wrap"><div id="progressBar"></div></div>
+      <input type="range" class="vol-slider" min="0" max="1" step="0.01" value="1" id="volumeControl"
+             onclick="event.stopPropagation()" oninput="changeVolume(this.value)">
+    </div>
+    <button class="music-btn" onclick="togglePlay(event)">
+      <i id="playPauseIcon" data-lucide="pause" style="width:16px;height:16px"></i>
+    </button>
+  </div>
+
+  <div style="position:relative;z-index:1;padding:24px;text-align:center;">
+    <p style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,105,142,.4);margin-bottom:20px;font-family:'Montserrat',sans-serif;">oh no...</p>
+    <h1 class="sad-title">that's so mean of you :(</h1>
+    <p class="sad-sub">I worked really hard to make this for you, you know... 💔</p>
+    <button class="btn-ghost-dark" onclick="navigateTo('pageValidate')">okay okay, I'll open it 😭💌</button>
+  </div>
+</div>
+
+<!-- PAGE 3 — VALIDATE -->
+<div id="pageValidate" class="page hidden" style="z-index:1">
+  <div class="validate-card">
+    <div class="photo-frame">
+      <img src="/images/validate.jpg" alt="us" onerror="this.style.display='none'">
+    </div>
+
+    <div style="width:100%">
+      <p class="pin-label" style="text-align:center">Birthday Passcode</p>
+      <div class="pin-display" id="pinDisplay">
+        You remember ur birthday, right? 🌹
+      </div>
+    </div>
+
+    <div class="keypad">
+      <button class="key" onclick="pressKey('1')">1</button>
+      <button class="key" onclick="pressKey('2')">2</button>
+      <button class="key" onclick="pressKey('3')">3</button>
+      <button class="key" onclick="pressKey('4')">4</button>
+      <button class="key" onclick="pressKey('5')">5</button>
+      <button class="key" onclick="pressKey('6')">6</button>
+      <button class="key" onclick="pressKey('7')">7</button>
+      <button class="key" onclick="pressKey('8')">8</button>
+      <button class="key" onclick="pressKey('9')">9</button>
+      <button class="key del" onclick="clearPin()">⌫</button>
+      <button class="key" onclick="pressKey('0')">0</button>
+      <div class="key empty"></div>
+    </div>
+
+    <p class="validate-footer">Made with love💛</p>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+
+  const CORRECT_PIN = "240426";
+  let currentPage = "pageIndex";
+  let isMusicPlaying = false;
+  let isPlayerExpanded = false;
+  let currentInput = "";
+
+  const audio = document.getElementById("sadAudio");
+  const pinDisplay = document.getElementById("pinDisplay");
+  const trail = document.getElementById("trailContainer");
+
+  /* ── Petals ── */
+  const PETAL_COLORS = ["#f0698e","#d63d6e","#f5a623","#ffd97d","#b983e0","#6dd5c4","#f4756a"];
+  const petalBg = document.getElementById("petalBg");
+  for (let i = 0; i < 32; i++) {
+    const p = document.createElement("div");
+    p.className = "petal";
+    const sz = 4 + Math.random() * 8;
+    p.style.cssText = `
+      left:${Math.random()*100}%; width:${sz}px; height:${sz}px;
+      background:${PETAL_COLORS[Math.floor(Math.random()*PETAL_COLORS.length)]};
+      animation-duration:${6+Math.random()*10}s;
+      animation-delay:${Math.random()*10}s;
+      border-radius:${Math.random()>.5?'50% 0 50% 0':'50%'};
+    `;
+    petalBg.appendChild(p);
+  }
+
+  /* ── Navigation ── */
+  function navigateTo(id) {
+    document.getElementById(currentPage).classList.add("hidden");
+    document.getElementById(id).classList.remove("hidden");
+    currentPage = id;
+    if (id === "pageNoThanks") playSadMusic();
+    else stopSadMusic();
+  }
+
+  /* ── Mouse Trail ── */
+  window.addEventListener("mousemove", e => {
+    const el = document.createElement("span");
+    if (currentPage === "pageNoThanks") {
+      el.className = "trail-sad";
+      el.innerText = "😢";
+      setTimeout(() => el.remove(), 1400);
+    } else {
+      el.className = "trail-heart";
+      el.innerText = ["💕","💗","🌹","✨","💝"][Math.floor(Math.random()*5)];
+      setTimeout(() => el.remove(), 900);
+    }
+    el.style.left = e.clientX + "px";
+    el.style.top  = e.clientY + "px";
+    trail.appendChild(el);
+  });
+
+  /* ── Music ── */
+  function playSadMusic() {
+    audio.play().then(() => { isMusicPlaying = true; updatePlayerUI(); expandPlayer(); }).catch(()=>{});
+  }
+  function stopSadMusic() { audio.pause(); isMusicPlaying = false; }
+  function togglePlay(e) {
+    e.stopPropagation();
+    isMusicPlaying ? audio.pause() : audio.play();
+    isMusicPlaying = !isMusicPlaying;
+    updatePlayerUI();
+  }
+  function changeVolume(v) { audio.volume = v; }
+  function expandPlayer() {
+    isPlayerExpanded = true;
+    document.getElementById("playerExpanded").classList.add("open");
+  }
+  document.getElementById("musicPlayer").addEventListener("click", () => {
+    isPlayerExpanded = !isPlayerExpanded;
+    document.getElementById("playerExpanded").classList.toggle("open", isPlayerExpanded);
+  });
+  function updatePlayerUI() {
+    document.getElementById("playPauseIcon").setAttribute("data-lucide", isMusicPlaying ? "pause" : "play");
+    document.getElementById("musicDot").classList.toggle("paused", !isMusicPlaying);
+    lucide.createIcons();
+  }
+  audio.addEventListener("timeupdate", () => {
+    if (!isNaN(audio.duration))
+      document.getElementById("progressBar").style.width = ((audio.currentTime/audio.duration)*100)+"%";
+  });
+
+  /* ── PIN ── */
+  const DEFAULT_HINT = "You remember ur birthday, right? 🌹";
+  function pressKey(num) {
+    if (currentInput.length >= CORRECT_PIN.length) return;
+    currentInput += num;
+    pinDisplay.textContent = "●".repeat(currentInput.length);
+    pinDisplay.className = "pin-display";
+    if (currentInput.length === CORRECT_PIN.length) {
+      if (currentInput === CORRECT_PIN) {
+        pinDisplay.textContent = "Welcome, my love 💜";
+        pinDisplay.classList.add("success");
+        setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+      } else {
+        pinDisplay.textContent = "Forgot it already? 😢";
+        pinDisplay.classList.add("error");
+        pinDisplay.classList.add("shake");
+        setTimeout(() => { pinDisplay.classList.remove("shake"); clearPin(); }, 1500);
+      }
+    }
+  }
+  function clearPin() {
+    currentInput = "";
+    pinDisplay.textContent = DEFAULT_HINT;
+    pinDisplay.className = "pin-display";
+  }
+
+  /* ══════════════════════════════════════
+     PROTEKSI ANTI-INSPECT ELEMENT (BERLAPIS)
+     ══════════════════════════════════════ */
+
+  // 1. Blokir Klik Kanan (Context Menu)
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // 2. Blokir Tombol Shortcut Keyboard (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+  document.addEventListener('keydown', function(e) {
+    // Blokir F12
+    if (e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+    // Blokir Ctrl+Shift+I (Inspect)
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+      e.preventDefault();
+      return false;
+    }
+    // Blokir Ctrl+Shift+J (Console)
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+      e.preventDefault();
+      return false;
+    }
+    // Blokir Ctrl+U (View Source)
+    if (e.ctrlKey && e.keyCode === 85) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 3. Trik Debouncer/Debugger otomatis (Bikin stuck kalau DevTools nekat dibuka lewat menu browser)
+  setInterval(function() {
+    (function() {
+      try {
+        (function a(i) {
+          if (("" + i / i).length !== 1 || i % 20 === 0) {
+            (function() {}).constructor("debugger")();
+          } else {
+            debugger;
+          }
+          a(++i);
+        })(0);
+      } catch (e) {}
+    })();
+  }, 1000);
+</script>
+</body>
+</html>
